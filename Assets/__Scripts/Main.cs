@@ -9,6 +9,7 @@ public class Main: MonoBehaviour {
     public GameObject[] prefabEnemies;
     public float enemySpawnPerSecond = 0.5f;
     public float enemyInsetDefault = 1.5f;
+    public float gameRestartDelay = 2;
 
     private BoundsCheck bndCheck;
 
@@ -19,13 +20,15 @@ public class Main: MonoBehaviour {
         Invoke(nameof(SpawnEnemy), 1f/enemySpawnPerSecond);
     }
 
-    public void SpawnEnemy(){
+    public void SpawnEnemy()
+    {
         int ndx = Random.Range(0, prefabEnemies.Length);
         GameObject go = Instantiate<GameObject>(prefabEnemies[ndx]);
 
         //Position the enemy above the screen with random position
         float enemyInset = enemyInsetDefault;
-        if(go.GetComponent<BoundsCheck>() != null){
+        if (go.GetComponent<BoundsCheck>() != null)
+        {
             enemyInset = Mathf.Abs(go.GetComponent<BoundsCheck>().radius);
         }
 
@@ -37,6 +40,23 @@ public class Main: MonoBehaviour {
         pos.y = bndCheck.camHeight + enemyInset;
         go.transform.position = pos;
 
-        Invoke(nameof(SpawnEnemy), 1f/enemySpawnPerSecond);
+        Invoke(nameof(SpawnEnemy), 1f / enemySpawnPerSecond);
+    }
+
+    void DelayedRestart()
+    {
+        // Invoke the Restart() method in gameRestartDelay seconds
+        Invoke(nameof(Restart), gameRestartDelay);
+    }
+
+    void Restart()
+    {
+        // Reload __Scene_0 to restart the game
+        SceneManager.LoadScene("__Scene_0");
+    }
+    
+    static public void HERO_DIED()
+    {
+        S.DelayedRestart();
     }
 }
