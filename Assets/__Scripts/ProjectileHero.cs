@@ -7,7 +7,7 @@ public class ProjectileHero : MonoBehaviour{
     private BoundsCheck bndCheck;
 
     void Awake(){
-        bndCheck = GetComponent<BoundCheck>();
+        bndCheck = GetComponent<BoundsCheck>();
     }
 
     void Update (){

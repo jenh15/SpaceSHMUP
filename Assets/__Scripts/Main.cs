@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagment;
+using UnityEngine.SceneManagement;
 
 public class Main: MonoBehaviour {
     static private Main S;
@@ -37,6 +37,6 @@ public class Main: MonoBehaviour {
         pos.y = bndCheck.camHeight + enemyInset;
         go.transform.position = pos;
 
-        Invoke(namepf(SpawnEnemy), 1f/enemySpawnPerSecond);
+        Invoke(nameof(SpawnEnemy), 1f/enemySpawnPerSecond);
     }
 }
