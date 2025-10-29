@@ -82,6 +82,7 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
+  powerUpDropChance: 1
 --- !u!114 &3238029187412715179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6effd7c44de8a4dabe51b75a8a19ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundsType: 2
-  radius: 2.5
+  boundsType: 1
+  radius: 8
   keepOnScreen: 0
   screenLocs: 0
   camWidth: 0
