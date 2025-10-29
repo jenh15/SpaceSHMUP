@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Main: MonoBehaviour {
+public class Main : MonoBehaviour
+{
     static private Main S;
     static private Dictionary<eWeaponType, WeaponDefinition> WEAP_DICT;
 
@@ -13,11 +14,18 @@ public class Main: MonoBehaviour {
     public float enemySpawnPerSecond = 0.5f;
     public float enemyInsetDefault = 1.5f;
     public float gameRestartDelay = 2;
+    public GameObject prefabPowerUp;
     public WeaponDefinition[] weaponDefinitions;
+    public eWeaponType[] powerUpFrequency = new eWeaponType[]
+                                        {
+                                            eWeaponType.blaster, eWeaponType.blaster,
+                                            eWeaponType.spread, eWeaponType.shield
+                                        };
 
     private BoundsCheck bndCheck;
 
-    void Awake(){
+    void Awake()
+    {
         S = this;
 
         bndCheck = GetComponent<BoundsCheck>();
@@ -25,7 +33,7 @@ public class Main: MonoBehaviour {
 
         // A generic Dictionary with eWeaponType as the key
         WEAP_DICT = new Dictionary<eWeaponType, WeaponDefinition>();
-        foreach(WeaponDefinition def in weaponDefinitions)
+        foreach (WeaponDefinition def in weaponDefinitions)
         {
             WEAP_DICT[def.type] = def;
         }
@@ -77,7 +85,7 @@ public class Main: MonoBehaviour {
     {
         S.DelayedRestart();
     }
-    
+
     static public WeaponDefinition GET_WEAPON_DEFINITION(eWeaponType wt)
     {
         if (WEAP_DICT.ContainsKey(wt))
@@ -87,5 +95,20 @@ public class Main: MonoBehaviour {
 
         // If no entry of the correct type exists in WEAP_DICT, return a new WeaponDefinition with a type of eWeaponType.none (the default value)
         return (new WeaponDefinition());
+    }
+
+    static public void SHIP_DESTROYED(Enemy e)
+    {
+        if (Random.value <= e.powerUpDropChance)
+        {
+            int ndx = Random.Range(0, S.powerUpFrequency.Length);
+            eWeaponType pUpType = S.powerUpFrequency[ndx];
+
+            GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
+            PowerUp pUp = go.GetComponent<PowerUp>();
+            pUp.SetType(pUpType);
+
+            pUp.transform.position = e.transform.position;
+        }
     }
 }

@@ -91,7 +91,7 @@ public class PowerUp : MonoBehaviour
         cubeMat.color = def.powerUpColor;
         // letter.color = def.color;
         letter.text = def.letter;
-        type = wt;
+        _type = wt;
     }
     
     public void AbsorbedBy(GameObject target)
