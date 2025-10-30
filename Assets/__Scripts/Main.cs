@@ -16,6 +16,8 @@ public class Main : MonoBehaviour
     public float gameRestartDelay = 2;
     public GameObject prefabPowerUp;
     public GameManager gameManager;
+    public int lives = 3;
+    public GameObject[] heartIcons;
     public WeaponDefinition[] weaponDefinitions;
     public eWeaponType[] powerUpFrequency = new eWeaponType[]
                                         {
@@ -29,6 +31,11 @@ public class Main : MonoBehaviour
     {
         S = this;
         S.gameManager.gameOverUI.SetActive(false);
+        lives = 3;
+        for (int i = 0; i < heartIcons.Length; i++)
+        {
+            heartIcons[i].SetActive(true);
+        }
 
         bndCheck = GetComponent<BoundsCheck>();
         Invoke(nameof(SpawnEnemy), 1f / enemySpawnPerSecond);
@@ -86,8 +93,20 @@ public class Main : MonoBehaviour
 
     static public void HERO_DIED()
     {
-        //S.DelayedRestart();
-        S.Invoke(nameof(TriggerGameOver), S.gameRestartDelay);
+        S.lives--;
+        for (int i = 0; i < S.heartIcons.Length; i++)
+        {
+            S.heartIcons[i].SetActive(i < S.lives);
+        }
+        if (S.lives <= 0)
+        {
+            if (Hero.S != null)
+            {
+                Hero.S.gameObject.SetActive(false); 
+            }
+        
+            S.Invoke(nameof(TriggerGameOver), S.gameRestartDelay);
+        }
     }
 
     void TriggerGameOver()

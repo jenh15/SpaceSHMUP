@@ -14,6 +14,7 @@ public class Hero : MonoBehaviour
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
     public Weapon[] weapons;
+    public Main main;
 
     [Header("Dynamic")]
     [Range(0, 4)]
@@ -147,8 +148,15 @@ public class Hero : MonoBehaviour
             // If the shield is going to be set to less than zero
             if (value < 0)
             {
-                gameObject.SetActive(false);   // Destroy the Hero
-                Main.HERO_DIED();
+                if (main.lives == 0)
+                {
+                    gameObject.SetActive(false);   // Destroy the Hero
+                    Main.HERO_DIED();
+                } else
+                {
+                    _shieldLevel = 1;
+                    Main.HERO_DIED();
+                }
             }
         }
     }

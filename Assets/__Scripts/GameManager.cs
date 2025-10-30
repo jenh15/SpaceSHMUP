@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public Main main;
     [SerializeField]
     public GameObject gameOverUI;
     public bool gameOver = false;
@@ -54,8 +55,10 @@ public class GameManager : MonoBehaviour
         // Reset score
         HighScoreManager.S.ResetScore();
 
-        // Optionally respawn enemies if your Main class handles spawning
-        //Main.S?.RestartSpawning();
+        main.lives = 3;
+        for (int i = 0; i < 3; i++)
+        {
+            main.heartIcons[i].SetActive(true);
+        }
     }
-
 }
