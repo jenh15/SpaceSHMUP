@@ -10,7 +10,7 @@ public class PowerUp : MonoBehaviour
     [Tooltip("x holds a min value and a y max value for a Random.Range() call")]
     public Vector2 rotMinMax = new Vector2(15, 90);
     [Tooltip("x holds a min value and a y max value for a Random.Range() call")]
-    public Vector2 driftMinMax = new Vector2(15, 90);
+    public Vector2 driftMinMax = new Vector2(0.25f, 2);
     public float lifeTime = 10;
     public float fadeTime = 4;
 
