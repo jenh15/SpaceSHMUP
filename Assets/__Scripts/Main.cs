@@ -108,7 +108,7 @@ public class Main : MonoBehaviour
 
 static public void SHIP_DESTROYED(Enemy e)
     {
-        /* int points = 0;
+        int points = 0;
 
         if (e is Enemy_0) points = 50;
         if (e is Enemy_1) points = 100;
@@ -116,7 +116,7 @@ static public void SHIP_DESTROYED(Enemy e)
         if (e is Enemy_3) points = 250;
         if (e is Enemy_4) points = 400;
 
-        HighScoreManager.S.AddScore(points); */
+        HighScoreManager.S.AddScore(points);
 
         if (Random.value <= e.powerUpDropChance)
          {

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     {
         gameOver = false;
         gameOverUI.SetActive(false);
+        HighScoreManager.S.ResetScore();
         SceneManager.LoadScene("__Scene_0");
     }
 }
