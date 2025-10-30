@@ -22,4 +22,9 @@ public class GameManager : MonoBehaviour
         HighScoreManager.S.ResetScore();
         SceneManager.LoadScene("__Scene_0");
     }
+
+    public void GameStart()
+    {
+        SceneManager.LoadScene("__Scene_0");
+    }
 }
