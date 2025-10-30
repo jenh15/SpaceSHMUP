@@ -147,7 +147,7 @@ public class Hero : MonoBehaviour
             // If the shield is going to be set to less than zero
             if (value < 0)
             {
-                Destroy(this.gameObject);   // Destroy the Hero
+                gameObject.SetActive(false);   // Destroy the Hero
                 Main.HERO_DIED();
             }
         }
@@ -172,5 +172,22 @@ public class Hero : MonoBehaviour
         {
             w.SetType(eWeaponType.none);
         }
+    }
+
+    public void ResetHero()
+    {
+        // Reset shield
+        _shieldLevel = 1;
+
+        // Reset position
+        transform.position = Vector3.zero;
+
+        // Reset weapons
+        ClearWeapons();
+        weapons[0].SetType(eWeaponType.blaster);
+
+        // Make sure the hero is active in case it was destroyed
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
     }
 }

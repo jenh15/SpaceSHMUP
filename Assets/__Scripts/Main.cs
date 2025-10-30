@@ -106,7 +106,7 @@ public class Main : MonoBehaviour
         return (new WeaponDefinition());
     }
 
-static public void SHIP_DESTROYED(Enemy e)
+    static public void SHIP_DESTROYED(Enemy e)
     {
         int points = 0;
 
@@ -119,15 +119,15 @@ static public void SHIP_DESTROYED(Enemy e)
         HighScoreManager.S.AddScore(points);
 
         if (Random.value <= e.powerUpDropChance)
-         {
-                int ndx = Random.Range(0, S.powerUpFrequency.Length);
-                eWeaponType pUpType = S.powerUpFrequency[ndx];
+        {
+            int ndx = Random.Range(0, S.powerUpFrequency.Length);
 
-                GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
-                PowerUp pUp = go.GetComponent<PowerUp>();
-                pUp.SetType(pUpType);
+            eWeaponType pUpType = S.powerUpFrequency[ndx];
+            GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
+            PowerUp pUp = go.GetComponent<PowerUp>();
+            pUp.SetType(pUpType);
 
-                pUp.transform.position = e.transform.position;
-            }
+            pUp.transform.position = e.transform.position;
         }
     }
+}

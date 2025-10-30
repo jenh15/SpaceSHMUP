@@ -11,20 +11,51 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverUI.SetActive(true);
-        gameOver = true;
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+            gameOver = true;
+        }
     }
 
     public void Restart()
     {
-        gameOver = false;
-        gameOverUI.SetActive(false);
-        HighScoreManager.S.ResetScore();
-        SceneManager.LoadScene("__Scene_0");
+        ResetGame();
     }
 
     public void GameStart()
     {
         SceneManager.LoadScene("__Scene_0");
     }
+
+    public void ResetGame()
+    {
+        // Hide the Game Over UI
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
+
+        gameOver = false;
+
+        // Reset the player's shield or health
+        Hero.S?.ResetHero();
+
+        // Destroy all existing enemies
+        foreach (Enemy e in FindObjectsOfType<Enemy>())
+        {
+            Destroy(e.gameObject);
+        }
+
+        // Destroy all projectiles
+        foreach (ProjectileHero p in FindObjectsOfType<ProjectileHero>())
+        {
+            Destroy(p.gameObject);
+        }
+
+        // Reset score
+        HighScoreManager.S.ResetScore();
+
+        // Optionally respawn enemies if your Main class handles spawning
+        //Main.S?.RestartSpawning();
+    }
+
 }
