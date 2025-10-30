@@ -15,7 +15,6 @@ public class Enemy_4 : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"Enemy_4 {name} spawned at {transform.position}");
         allshields = GetComponentsInChildren<EnemyShield>();
         thisShield = GetComponent<EnemyShield>();
         p0 = p1 = pos;

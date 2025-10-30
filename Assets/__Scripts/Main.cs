@@ -15,6 +15,7 @@ public class Main : MonoBehaviour
     public float enemyInsetDefault = 1.5f;
     public float gameRestartDelay = 2;
     public GameObject prefabPowerUp;
+    public GameManager gameManager;
     public WeaponDefinition[] weaponDefinitions;
     public eWeaponType[] powerUpFrequency = new eWeaponType[]
                                         {
@@ -27,6 +28,7 @@ public class Main : MonoBehaviour
     void Awake()
     {
         S = this;
+        S.gameManager.gameOverUI.SetActive(false);
 
         bndCheck = GetComponent<BoundsCheck>();
         Invoke(nameof(SpawnEnemy), 1f / enemySpawnPerSecond);
@@ -69,7 +71,7 @@ public class Main : MonoBehaviour
         Invoke(nameof(SpawnEnemy), 1f / enemySpawnPerSecond);
     }
 
-    void DelayedRestart()
+    /* void DelayedRestart()
     {
         // Invoke the Restart() method in gameRestartDelay seconds
         Invoke(nameof(Restart), gameRestartDelay);
@@ -80,11 +82,17 @@ public class Main : MonoBehaviour
         // Reload __Scene_0 to restart the game
         SceneManager.LoadScene("__Scene_0");
         HighScoreManager.S.ResetScore();
-    }
+    }  */
 
     static public void HERO_DIED()
     {
-        S.DelayedRestart();
+        //S.DelayedRestart();
+        S.Invoke(nameof(TriggerGameOver), S.gameRestartDelay);
+    }
+
+    void TriggerGameOver()
+    {
+        gameManager.GameOver();
     }
 
     static public WeaponDefinition GET_WEAPON_DEFINITION(eWeaponType wt)
@@ -98,10 +106,9 @@ public class Main : MonoBehaviour
         return (new WeaponDefinition());
     }
 
-
 static public void SHIP_DESTROYED(Enemy e)
     {
-        int points = 0;
+        /* int points = 0;
 
         if (e is Enemy_0) points = 50;
         if (e is Enemy_1) points = 100;
@@ -109,7 +116,7 @@ static public void SHIP_DESTROYED(Enemy e)
         if (e is Enemy_3) points = 250;
         if (e is Enemy_4) points = 400;
 
-        HighScoreManager.S.AddScore(points);
+        HighScoreManager.S.AddScore(points); */
 
         if (Random.value <= e.powerUpDropChance)
          {
